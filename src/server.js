@@ -3,39 +3,31 @@ import express from "express";
 const PORT = 4040;
 const app = express();
 
-const logger = (req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  //return res.send("lalalal");
+const routerLogger = (req, res, next) => {
+  console.log("PATH", req.path);
   next();
 };
 
-const privateMiddleware = (req, res, next) => {
-  const url = req.url;
-  if (url === "/protected") {
-    return res.send("<h1>Not Allowed</h1>");
-  }
-  console.log("Allowed");
+const methodLogger = (req, res, next) => {
+  console.log("METHOD", req.method);
   next();
 };
 
-const handleHome = (req, res) => {
-  console.log("I'm in the handleHome!");
-  return res.send("I love Middleware.");
+const home = (req, res) => {
+  console.log("last return");
+  return res.send("hello World");
 };
 
-const handleProtected = (req, res) => {
-  return res.send("Welcome to private lounge!");
+const login = (req, res) => {
+  return res.send("login");
 };
-//const handleLogin = (req, res) => {
-//  return res.end({ message: "Login here." });
-//};
 
-app.use(logger);
-app.use(privateMiddleware);
-app.get("/", handleHome);
-app.get("/protected", handleProtected);
+app.use(methodLogger, routerLogger);
+app.get("/", home);
+app.get("/login", login);
 //app.get("/login", handleLogin);
 
 const handleListening = () =>
   console.log(`✅ Server listenting on port http://localhost:${PORT} 🚀`);
+
 app.listen(PORT, handleListening);
