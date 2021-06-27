@@ -8,12 +8,8 @@ import Video from "../models/Video";
 //};
 
 export const home = async (req, res) => {
-  try {
-    const videos = await Video.find({});
-    return res.render("home", { pageTitle: "Home", videos });
-  } catch {
-    console.log("server-eroor");
-  }
+  const videos = await Video.find({});
+  return res.render("home", { pageTitle: "Home", videos });
 };
 
 export const watch = (req, res) => {
