@@ -49,7 +49,7 @@ export const postEdit = async (req, res) => {
     description,
     hashtags: Video.formatHashtags(hashtags),
   });
-  return res.redirect(`videos/videos/${id}`);
+  return res.redirect(`/videos/${id}`);
 };
 
 export const getUpload = (req, res) => {

@@ -27,7 +27,7 @@ export const postJoin = async (req, res) => {
       password,
       location,
     });
-    return res.redirect("users/login");
+    return res.redirect("/login");
   } catch (error) {
     return res.status(400).render("users/join", {
       pageTitle: "Upload Video",
@@ -109,7 +109,7 @@ export const finishGithubLogin = async (req, res) => {
     );
     if (!emailObj) {
       // set notification
-      return res.redirect("users/login");
+      return res.redirect("/login");
     }
     let user = await User.findOne({ email: emailObj.email });
     if (!user) {
@@ -127,7 +127,7 @@ export const finishGithubLogin = async (req, res) => {
     req.session.user = user;
     return res.redirect("/");
   } else {
-    return res.redirect("users/login");
+    return res.redirect("/login");
   }
 };
 export const logout = (req, res) => {
@@ -144,12 +144,14 @@ export const postEdit = async (req, res) => {
     session: {
       user: {
         _id,
+        avatarUrl,
         name: sessionName,
         email: sessionEmail,
         username: sessionUsername,
       },
     },
     body: { name, email, username, location },
+    file,
   } = req;
 
   let sessionInfo = [];
@@ -174,6 +176,7 @@ export const postEdit = async (req, res) => {
     const updateuser = await User.findByIdAndUpdate(
       _id,
       {
+        avatarUrl: file ? file.path : avatarUrl,
         name,
         email,
         username,
@@ -182,7 +185,7 @@ export const postEdit = async (req, res) => {
       { new: true }
     );
     req.session.user = updateuser;
-    return res.redirect("users/users/edit");
+    return res.redirect("/users/edit");
   } catch (error) {
     return res.status(400).render("users/edit-profile", {
       pageTitle: "Upload Video",
@@ -225,7 +228,7 @@ export const postChangePassword = async (req, res) => {
   await user.save();
   req.session.user.password = user.password;
   //send noti
-  return res.redirect("/users/logout");
+  return res.redirect("/logout");
 };
 
 export const see = (req, res) => res.send("See User");
