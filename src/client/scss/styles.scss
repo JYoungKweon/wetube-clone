@@ -6,10 +6,14 @@
 @import "./components/footer.scss";
 @import "./components/video.scss";
 @import "./components/shared.scss";
+@import "./components/social-login.scss";
+@import "./components/forms.scss";
 
 //screens
 @import "./screens/home.scss";
 @import "./screens/search.scss";
+@import "./screens/edit-profile.scss";
+@import "./screens/profile.scss";
 
 // Defaults
 a {
