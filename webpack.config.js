@@ -14,7 +14,7 @@ module.exports = {
   mode: "development",
   watch: true,
   output: {
-    filename: "js/[name].js",
+    filename: "js/[name]].js",
     path: path.resolve(__dirname, "assets"),
     clean: true,
   },
