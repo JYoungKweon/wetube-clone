@@ -16,6 +16,11 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  "/static",
+  express.static("assets"),
+  express.static("node_modules/@ffmpeg/core/dist")
+);
 
 //session
 app.use(
