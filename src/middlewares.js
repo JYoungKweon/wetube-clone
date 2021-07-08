@@ -9,8 +9,6 @@ const s3 = new aws.S3({
   },
 });
 
-const isHeroku = process.env.NODE_ENV === "production";
-
 const s3ImageUploader = multerS3({
   s3: s3,
   bucket: "wetube-jyk/images",
@@ -46,6 +44,8 @@ export const publicOnlyMiddleware = (req, res, next) => {
     return res.redirect("/");
   }
 };
+
+const isHeroku = process.env.NODE_ENV === "production";
 
 export const avatarUpload = multer({
   dest: "uploads/avatars/",
